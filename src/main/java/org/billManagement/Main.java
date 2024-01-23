@@ -1,7 +1,7 @@
 package org.billManagement;
 
-import org.billManagement.models.OrderList.MyOrders;
 import org.billManagement.models.dao.Orders;
+import org.billManagement.models.dto.MyOrders;
 import org.billManagement.service.OrdersService;
 
 import java.util.ArrayList;

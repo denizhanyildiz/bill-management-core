@@ -1,13 +1,11 @@
 package org.billManagement.service;
 
-import org.billManagement.models.OrderList.MyOrders;
 import org.billManagement.models.dao.Orders;
 import org.billManagement.models.dto.OrderDto;
 import org.billManagement.models.dto.OrderInfo;
 import org.billManagement.models.dto.ProductNumberDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package org.billManagement.models.OrderList;
+package org.billManagement.models.dto;
 
 import org.billManagement.models.dao.Orders;
 
