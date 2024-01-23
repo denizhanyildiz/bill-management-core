@@ -29,6 +29,10 @@ public class Main {
 
         MyOrders myOrders = new MyOrders(ordersArrayList);
 
+        /**
+         * Cevapların kontrolü için servis katmanını ziyaret edebilirsiniz.
+         */
+
         OrdersService.calculateTotalUnitPrice(myOrders.getOrdersArrayList());
         OrdersService.findAveragePriceByProductNumber(myOrders.getOrdersArrayList());
         OrdersService.calculateAveragePriceByOrderIdAndProductNumber(myOrders.getOrdersArrayList());
