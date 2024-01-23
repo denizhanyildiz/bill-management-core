@@ -1,0 +1,23 @@
+GET http://universities.hipolabs.com/search?country=United+States
+
+HTTP/1.1 200
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 24 Jan 2024 23:54:40 GMT
+Keep-Alive: timeout=60
+Connection: keep-alive
+
+{Success!!}
+
+-HEADER-
+GET -> istek türü
+http://localhost:8089/api/order/averagePriceByProduct -> istek yapılan url
+HTTP/1.1 200 -> yanıt bağlantısının sürümü ve yanıt kodu.
+Content-Type: -> Yanıt içeriğinin JSON formatında olduğunu belirtir.
+Transfer-Encoding: chunked -> Yanıtın parçalar halinde gönderildiğini gösterir (big data transfer)
+Date: Mon, 22 Jan 2024 19:54:40 GMT -> Yanıtın verildiği tarih ve saat bilgisi.
+Keep-Alive: timeout=60 -> Sunucunun bağlantıyı maksimum açık tuttuğu süre.
+Connection: keep-alive -> Bağlantının tekrar kullanmaya açık olduğu bilgisini verir.
+
+-BODY-
+{ ..... } -> Yanıtın asıl içeriğini gösterir.
