@@ -19,4 +19,11 @@ public class MyOrders {
     public ArrayList<Orders> getOrdersArrayList() {
         return ordersArrayList;
     }
+
+    @Override
+    public String toString() {
+        return "MyOrders{" +
+                "ordersArrayList=" + ordersArrayList +
+                '}';
+    }
 }

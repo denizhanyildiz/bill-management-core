@@ -1,12 +1,16 @@
 package org.billManagement;
 
 import org.billManagement.models.dao.Orders;
-import org.billManagement.models.dto.MyOrders;
+import org.billManagement.models.dto.*;
 import org.billManagement.service.OrdersService;
 
 import java.util.ArrayList;
 
-public class Main {
+public class Main extends OrdersService {
+
+    public Main(MyOrders myOrders) {
+        super(myOrders);
+    }
 
     public static void main(String[] args) {
 
@@ -32,12 +36,18 @@ public class Main {
         /**
          * Cevapların kontrolü için servis katmanını ziyaret edebilirsiniz.
          */
+        OrdersService ordersService = new OrdersService(myOrders);
 
-        OrdersService.calculateTotalUnitPrice(myOrders.getOrdersArrayList());
-        OrdersService.findAveragePriceByProductNumber(myOrders.getOrdersArrayList());
-        OrdersService.calculateAveragePriceByOrderIdAndProductNumber(myOrders.getOrdersArrayList());
-        OrdersService.getProductNumberDetails(myOrders.getOrdersArrayList());
-        OrdersService.getAllOrder(myOrders.getOrdersArrayList());
+        Double aDouble = ordersService.calculateTotalUnitPrice();
+        System.out.println("1-a) " + aDouble);
+        ArrayList<AveragePriceDto> averagePriceDtos = ordersService.findAveragePriceByProductNumber();
+        System.out.println("1-b) " + averagePriceDtos);
+        ArrayList<OrderInfoDto> orderInfoDtos = ordersService.calculateAveragePriceByOrderIdAndProductNumber();
+        System.out.println("1-c) " + orderInfoDtos);
+        ArrayList<ProductNumberDetailsDto> productNumberDetailsDtos = ordersService.getProductNumberDetails();
+        System.out.println("1-d) " + productNumberDetailsDtos);
+        ArrayList<OrderDto> orderDtos = ordersService.getAllOrder();
+        System.out.println("2) " + orderDtos);
 
     }
 

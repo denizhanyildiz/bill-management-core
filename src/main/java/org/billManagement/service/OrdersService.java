@@ -1,51 +1,34 @@
 package org.billManagement.service;
 
+import org.billManagement.intercaces.*;
 import org.billManagement.models.dao.Orders;
-import org.billManagement.models.dto.OrderDto;
-import org.billManagement.models.dto.OrderInfo;
-import org.billManagement.models.dto.ProductNumberDetails;
+import org.billManagement.models.dto.*;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OrdersService {
+public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNumberInterface,
+        CalculateTotalUnitPriceInterface,
+        FindAveragePriceByProductNumberInterface,
+        GetAllOrderInterface,
+        GetProductNumberDetailsInterface {
 
-    /**
-     * Bu API 1. soru a maddesine cevap vermek amacıyla yazılmıtır.
-     *
-     * @return
-     */
-    public static Double calculateTotalUnitPrice(ArrayList<Orders> orders) {
-        ArrayList<Orders> ordersArrayList = orders;
+    private MyOrders myOrders;
 
-        Double totalUnitPrice = ordersArrayList.stream()
-                .mapToDouble(order -> Double.parseDouble(order.getUnitPrice()) * order.getPiece())
-                .sum();
-
-        return totalUnitPrice;
+    public OrdersService(MyOrders myOrders) {
+        this.myOrders = myOrders;
     }
 
     /**
-     * Bu API 1. soru b maddesine cevap vermek amacıyla yazılmıştır.
+     * Bu Metot 1. soru a maddesine cevap vermek amacıyla yazılmıtır.
      *
      * @return
      */
-    public static ArrayList<Orders> findAveragePriceByProductNumber(ArrayList<Orders> orders) {
-        Map<Integer, Double> averagePricesByProductNumber = orders.stream()
-                .collect(Collectors.groupingBy(
-                        Orders::getProductNumber,
-                        Collectors.averagingDouble(order -> Double.parseDouble(order.getUnitPrice()))
-                ));
-
-        ArrayList<Orders> ordersList = new ArrayList<>();
-
-        averagePricesByProductNumber.forEach((productNumber, averagePrice) -> {
-            Orders order = new Orders(productNumber, String.valueOf(averagePrice));
-            ordersList.add(order);
-        });
-
-        return ordersList;
+    @Override
+    public Double calculateTotalUnitPrice() {
+        return myOrders.getOrdersArrayList().stream()
+                .mapToDouble(order -> Double.parseDouble(order.getUnitPrice()) * order.getPiece())
+                .sum();
     }
 
     /**
@@ -53,8 +36,9 @@ public class OrdersService {
      *
      * @return
      */
-    public static ArrayList<OrderInfo> calculateAveragePriceByOrderIdAndProductNumber(ArrayList<Orders> orders) {
-        return orders.stream()
+    @Override
+    public ArrayList<OrderInfoDto> calculateAveragePriceByOrderIdAndProductNumber() {
+        return myOrders.getOrdersArrayList().stream()
                 .collect(Collectors.groupingBy(
                         Orders::getOrderId,
                         Collectors.groupingBy(
@@ -63,11 +47,48 @@ public class OrdersService {
                         )
                 ))
                 .entrySet().stream()
-                .flatMap(orderEntry -> orderEntry.getValue().entrySet().stream()
-                        .map(productEntry -> new OrderInfo(
-                                orderEntry.getKey(),
-                                productEntry.getKey(),
-                                productEntry.getValue())))
+                .flatMap(orderEntry ->
+                        orderEntry.getValue().entrySet().stream()
+                                .map(productEntry -> new OrderInfoDto(
+                                        orderEntry.getKey(),
+                                        productEntry.getKey(),
+                                        productEntry.getValue())))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Bu API 1. soru b maddesine cevap vermek amacıyla yazılmıştır.
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<AveragePriceDto> findAveragePriceByProductNumber() {
+        return myOrders.getOrdersArrayList().stream()
+                .collect(Collectors.groupingBy(
+                        Orders::getProductNumber,
+                        Collectors.averagingDouble(order -> Double.parseDouble(order.getUnitPrice()))
+                ))
+                .entrySet().stream()
+                .map(entry -> new AveragePriceDto(entry.getKey(), String.valueOf(entry.getValue())))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Bu metot 2. soruya cevap vermek amacıyla yazılmıştır.
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<OrderDto> getAllOrder() {
+        return myOrders.getOrdersArrayList().stream()
+                .map(eachOrders -> {
+                    OrderDto orderDto = new OrderDto();
+                    orderDto.setOrderId(eachOrders.getId());
+                    orderDto.setPiece(eachOrders.getPiece());
+                    orderDto.setUnitPrice(eachOrders.getUnitPrice());
+                    orderDto.setProductNumber(eachOrders.getProductNumber());
+                    return orderDto;
+                })
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -76,37 +97,25 @@ public class OrdersService {
      *
      * @return
      */
-    public static ArrayList<ProductNumberDetails> getProductNumberDetails(ArrayList<Orders> orders) {
-        ArrayList<Orders> ordersArrayList = orders;
-
-        ArrayList<ProductNumberDetails> productNumberDetailsList = ordersArrayList.stream()
-                .collect(Collectors.groupingBy(Orders::getProductNumber,
-                        Collectors.groupingBy(Orders::getOrderId,
-                                Collectors.summingInt(Orders::getPiece))))
+    @Override
+    public ArrayList<ProductNumberDetailsDto> getProductNumberDetails() {
+        return myOrders.getOrdersArrayList().stream()
+                .collect(Collectors.groupingBy(
+                        Orders::getProductNumber,
+                        Collectors.groupingBy(
+                                Orders::getOrderId,
+                                Collectors.summingInt(Orders::getPiece)
+                        )
+                ))
                 .entrySet().stream()
-                .flatMap(entry -> entry.getValue().entrySet().stream()
-                        .map(innerEntry -> new ProductNumberDetails(entry.getKey(), innerEntry.getKey(), innerEntry.getValue())))
+                .flatMap(entry ->
+                        entry.getValue().entrySet().stream()
+                                .map(innerEntry -> new ProductNumberDetailsDto(
+                                        entry.getKey(),
+                                        innerEntry.getKey(),
+                                        innerEntry.getValue()
+                                ))
+                )
                 .collect(Collectors.toCollection(ArrayList::new));
-
-        return productNumberDetailsList;
     }
-
-    /**
-     * Bu metot 2. soruya cevap vermek amacıyla yazılmıştır.
-     *
-     * @return
-     */
-    public static ArrayList<OrderDto> getAllOrder(ArrayList<Orders> orders) {
-        ArrayList<OrderDto> orderDtoList = new ArrayList<>();
-        for (Orders eachOrders : orders) {
-            OrderDto orderDto = new OrderDto();
-            orderDto.setOrderId(eachOrders.getId());
-            orderDto.setPiece(eachOrders.getPiece());
-            orderDto.setUnitPrice(eachOrders.getUnitPrice());
-            orderDto.setProductNumber(eachOrders.getProductNumber());
-            orderDtoList.add(orderDto);
-        }
-        return orderDtoList;
-    }
-
 }

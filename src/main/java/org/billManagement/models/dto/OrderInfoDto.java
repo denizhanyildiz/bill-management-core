@@ -1,11 +1,11 @@
 package org.billManagement.models.dto;
 
-public class OrderInfo {
+public class OrderInfoDto {
     private int orderId;
     private int productNumber;
     private double averagePrice;
 
-    public OrderInfo(int orderId, int productNumber, double averagePrice) {
+    public OrderInfoDto(int orderId, int productNumber, double averagePrice) {
         this.orderId = orderId;
         this.productNumber = productNumber;
         this.averagePrice = averagePrice;
@@ -21,5 +21,14 @@ public class OrderInfo {
 
     public double getAveragePrice() {
         return averagePrice;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderInfoDto{" +
+                "orderId=" + orderId +
+                ", productNumber=" + productNumber +
+                ", averagePrice=" + averagePrice +
+                '}';
     }
 }

@@ -1,21 +1,19 @@
 package org.billManagement.models.dto;
 
-public class ProductNumberDetails {
+public class ProductNumberDetailsDto {
     private int productNumber;
     private int orderId;
     private int totalPieces;
 
-    public ProductNumberDetails(int productNumber, int orderId, int totalPieces) {
+    public ProductNumberDetailsDto(int productNumber, int orderId, int totalPieces) {
         this.productNumber = productNumber;
         this.orderId = orderId;
         this.totalPieces = totalPieces;
     }
 
-    // Getters and setters (if needed)
-
     @Override
     public String toString() {
-        return "ProductNumberDetails{" +
+        return "ProductNumberDetailsDto{" +
                 "productNumber=" + productNumber +
                 ", orderId=" + orderId +
                 ", totalPieces=" + totalPieces +

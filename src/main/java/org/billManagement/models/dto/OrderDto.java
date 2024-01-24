@@ -70,4 +70,14 @@ public class OrderDto {
         this.unitPrice = unitPrice;
     }
 
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "id=" + id +
+                ", orderId=" + orderId +
+                ", productNumber=" + productNumber +
+                ", piece=" + piece +
+                ", unitPrice='" + unitPrice + '\'' +
+                '}';
+    }
 }
