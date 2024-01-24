@@ -12,6 +12,7 @@ public class PostRequestExample {
     public static void main(String[] args) {
         /**
          * İstek yapılacak API url.
+         * DİKKAT SERVİSE SADECE 1 KERE İSTEK ATILABİLİR.
          */
         String url = "https://dummy.restapiexample.com/api/v1/create";
 
@@ -31,7 +32,7 @@ public class PostRequestExample {
                 .build();
 
         /**
-         * isteğin ilgili uygulamaya gönderilmesi ve response'u
+         * isteğin gönderilmesi ve response'u
          */
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());

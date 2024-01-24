@@ -9,6 +9,7 @@ public class GetRequestExample {
     public static void main(String[] args) {
         /**
          * istek yapılacak API url.
+         * DİKKAT SERVİSE SADECE 1 KERE İSTEK ATILABİLİR.
          */
         String url = "http://universities.hipolabs.com/search?country=United+States";
 
