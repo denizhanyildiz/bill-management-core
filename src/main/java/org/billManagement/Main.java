@@ -6,11 +6,8 @@ import org.billManagement.service.OrdersService;
 
 import java.util.ArrayList;
 
-public class Main extends OrdersService {
+public class Main {
 
-    public Main(MyOrders myOrders) {
-        super(myOrders);
-    }
 
     public static void main(String[] args) {
 
