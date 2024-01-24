@@ -11,7 +11,7 @@ Connection: keep-alive
 
 -HEADER-
 GET -> istek türü
-http://localhost:8089/api/order/averagePriceByProduct -> istek yapılan url
+http://universities.hipolabs.com/search?country=United+States -> istek yapılan url
 HTTP/1.1 200 -> yanıt bağlantısının sürümü ve yanıt kodu.
 Content-Type: -> Yanıt içeriğinin JSON formatında olduğunu belirtir.
 Transfer-Encoding: chunked -> Yanıtın parçalar halinde gönderildiğini gösterir (big data transfer)
