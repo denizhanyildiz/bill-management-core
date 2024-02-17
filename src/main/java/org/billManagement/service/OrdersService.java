@@ -19,11 +19,6 @@ public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNu
         this.myOrders = myOrders;
     }
 
-    /**
-     * Bu Metot 1. soru a maddesine cevap vermek amacıyla yazılmıtır.
-     *
-     * @return
-     */
     @Override
     public Double calculateTotalUnitPrice() {
         return myOrders.getOrdersArrayList().stream()
@@ -31,11 +26,6 @@ public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNu
                 .sum();
     }
 
-    /**
-     * Bu API 1. soru c maddesine cevap vermek amacıyla yazılmıştır.
-     *
-     * @return
-     */
     @Override
     public ArrayList<OrderInfoDto> calculateAveragePriceByOrderIdAndProductNumber() {
         return myOrders.getOrdersArrayList().stream()
@@ -56,11 +46,6 @@ public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNu
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Bu API 1. soru b maddesine cevap vermek amacıyla yazılmıştır.
-     *
-     * @return
-     */
     @Override
     public ArrayList<AveragePriceDto> findAveragePriceByProductNumber() {
         return myOrders.getOrdersArrayList().stream()
@@ -73,11 +58,6 @@ public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNu
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Bu metot 2. soruya cevap vermek amacıyla yazılmıştır.
-     *
-     * @return
-     */
     @Override
     public ArrayList<OrderDto> getAllOrder() {
         return myOrders.getOrdersArrayList().stream()
@@ -92,11 +72,6 @@ public class OrdersService implements CalculateAveragePriceByOrderIdAndProductNu
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Bu API 1. soru d maddesine cevap vermek amacıyla yazılmıştır.
-     *
-     * @return
-     */
     @Override
     public ArrayList<ProductNumberDetailsDto> getProductNumberDetails() {
         return myOrders.getOrdersArrayList().stream()
