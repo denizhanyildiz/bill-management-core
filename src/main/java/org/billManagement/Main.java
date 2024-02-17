@@ -36,15 +36,15 @@ public class Main {
         OrdersService ordersService = new OrdersService(myOrders);
 
         Double aDouble = ordersService.calculateTotalUnitPrice();
-        System.out.println("1-a) " + aDouble);
+        System.out.println(aDouble);
         ArrayList<AveragePriceDto> averagePriceDtos = ordersService.findAveragePriceByProductNumber();
-        System.out.println("1-b) " + averagePriceDtos);
+        System.out.println(averagePriceDtos);
         ArrayList<OrderInfoDto> orderInfoDtos = ordersService.calculateAveragePriceByOrderIdAndProductNumber();
-        System.out.println("1-c) " + orderInfoDtos);
+        System.out.println(orderInfoDtos);
         ArrayList<ProductNumberDetailsDto> productNumberDetailsDtos = ordersService.getProductNumberDetails();
-        System.out.println("1-d) " + productNumberDetailsDtos);
+        System.out.println(productNumberDetailsDtos);
         ArrayList<OrderDto> orderDtos = ordersService.getAllOrder();
-        System.out.println("2) " + orderDtos);
+        System.out.println(orderDtos);
 
     }
 
